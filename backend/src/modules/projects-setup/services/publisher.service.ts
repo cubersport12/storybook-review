@@ -5,11 +5,11 @@ import {
   StoriesRepoService,
 } from '@repositories';
 import { MetadataPublishDto, PublishResultDto } from '@dto';
-import { StoryItemStatus } from '@types';
 import * as pixelmatch from 'pixelmatch';
 import { PNG } from 'pngjs';
 import { StoryItemEntity } from '@entities';
 import { orderBy, findLast } from 'lodash';
+import { fromBuffer } from 'yauzl';
 
 @Injectable()
 export class PublisherService {
@@ -48,8 +48,22 @@ export class PublisherService {
     return res > 0;
   }
 
+  private unzipFile(buffer: Buffer): Promise<Buffer> {
+    return new Promise<any>((resolve, reject) => {
+      fromBuffer(buffer, (error, zipfile) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        // console.log('entry', zipfile.);
+        resolve(null);
+      });
+    });
+  }
+
   public async publishMetadata(
-    data: PublishResultDto[],
+    storybookZipFile: Express.Multer.File,
     params: MetadataPublishDto,
   ): Promise<void> {
     const foundBranch = await this.branchesService.getBranchByName(
@@ -69,18 +83,20 @@ export class PublisherService {
       buildsInBranch.map((x) => x.id),
     );
 
-    for (let i = 0; i < data.length; i++) {
-      const item = data[i];
-      if (!(await this.hasDiffPrevBuild(newBuildId, item, storiesInBuilds))) {
-        return;
-      }
-      const newStoryId = await this.storiesService.createStory(newBuildId, {
-        name: item.title,
-        status: StoryItemStatus.Wait,
-      });
-      await this.storiesService.uploadImages(newStoryId, [
-        Buffer.from(item.snapshot.data),
-      ]);
-    }
+    const unzipped = await this.unzipFile(storybookZipFile.buffer);
+    console.log(unzipped);
+    // for (let i = 0; i < data.length; i++) {
+    //   const item = data[i];
+    //   if (!(await this.hasDiffPrevBuild(newBuildId, item, storiesInBuilds))) {
+    //     return;
+    //   }
+    //   const newStoryId = await this.storiesService.createStory(newBuildId, {
+    //     name: item.title,
+    //     status: StoryItemStatus.Wait,
+    //   });
+    //   await this.storiesService.uploadImages(newStoryId, [
+    //     Buffer.from(item.snapshot.data),
+    //   ]);
+    // }
   }
 }

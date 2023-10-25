@@ -6,8 +6,8 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiConsumes, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { MetadataPublishDto, PublishResultDto } from '@dto';
+import { ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { MetadataPublishDto } from '@dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Public } from '@entities';
 import { PublisherService } from '../services/publisher.service';
@@ -29,7 +29,6 @@ export class MetadataPublisherController {
     @UploadedFile() file: Express.Multer.File,
     @Body() metadata: MetadataPublishDto,
   ) {
-    const data: PublishResultDto[] = JSON.parse(file.buffer.toString('utf8'));
-    await this.publisherService.publishMetadata(data, metadata);
+    await this.publisherService.publishMetadata(file, metadata);
   }
 }
