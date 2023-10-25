@@ -1,5 +1,5 @@
 import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BuildItemDto } from '@dto';
 import { BuildsRepoService } from '@repositories';
 import { Public } from '@entities';
@@ -7,6 +7,7 @@ import { Mappers } from '@types';
 
 @Controller('builds')
 @ApiTags('builds')
+@ApiBearerAuth()
 export class BuildsController {
   constructor(private buildsRepo: BuildsRepoService) {}
 

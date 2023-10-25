@@ -6,21 +6,14 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiConsumes, ApiExcludeController, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiConsumes, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { MetadataPublishDto, PublishResultDto } from '@dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Public } from '@entities';
-import {
-  BranchesRepoService,
-  BuildsRepoService,
-  StoriesRepoService,
-} from '@repositories';
-import { StoryItemStatus } from '@types';
 import { PublisherService } from '../services/publisher.service';
 
 @Controller('metadata-publisher')
 @ApiTags('publisher')
-@ApiExcludeController()
 export class MetadataPublisherController {
   constructor(private readonly publisherService: PublisherService) {}
 

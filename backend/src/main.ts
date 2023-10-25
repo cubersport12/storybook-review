@@ -7,6 +7,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Notes API')
+    .addBearerAuth()
     .setDescription('The notes API description')
     .setVersion('1.0')
     .build();

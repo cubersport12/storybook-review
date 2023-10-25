@@ -22,10 +22,10 @@ import {
     RepositoriesModule,
     TypeOrmModule.forRoot({
       type: 'mssql',
-      host: 'localhost',
-      port: 1433,
+      host: 'IVANOVAA10\\IVANOVAA',
       username: 'prgacc',
-      password: '123',
+      port: 1433,
+      password: 'account',
       database: 'Storybook',
       autoLoadEntities: true,
       entities: [

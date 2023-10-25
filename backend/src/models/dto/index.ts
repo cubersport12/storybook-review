@@ -9,3 +9,4 @@ export * from './branch.dto';
 export * from './create-branch.dto';
 export * from './build-item.dto';
 export * from './story-item.dto';
+export * from './create-repo.dto';

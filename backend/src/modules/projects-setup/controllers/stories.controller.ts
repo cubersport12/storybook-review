@@ -1,11 +1,12 @@
 import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BuildItemDto, StoryItemDto } from '@dto';
 import { Public } from '@entities';
 import { StoriesRepoService } from '@repositories';
 import { Mappers } from '@types';
 
 @Controller('stories')
+@ApiBearerAuth()
 @ApiTags('stories')
 export class StoriesController {
   constructor(private storiesRepo: StoriesRepoService) {}

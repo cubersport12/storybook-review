@@ -7,19 +7,26 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiResponse,
+  ApiSecurity,
+  ApiTags,
+} from '@nestjs/swagger';
 import { BranchesRepoService } from '@repositories';
 import { BranchDto, CreateBranchDto } from '@dto';
 import { Public } from '@entities';
 import { Mappers } from '@types';
 
 @ApiTags('branches')
+@ApiBearerAuth()
 @Controller('branches')
 export class BranchesController {
   constructor(private branchRepo: BranchesRepoService) {}
 
   @Get('list/:repoId')
   @Public()
+  @ApiSecurity('basic')
   @ApiResponse({
     status: HttpStatus.OK,
     type: BranchDto,
