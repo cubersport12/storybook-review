@@ -57,5 +57,6 @@
       }
     }
   },
-  "defaultProject": "org"
+  "defaultProject": "frontend",
+  "nxCloudAccessToken": "MWM3MjBmOGMtZDliZi00NzU4LTk1YjItMjZmNjM2NDQ4NTZifHJlYWQtd3JpdGU="
 }

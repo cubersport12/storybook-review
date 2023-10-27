@@ -1,5 +1,5 @@
 {
-  "name": "org",
+  "name": "frontend",
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "./src",
   "projectType": "application",
@@ -10,7 +10,7 @@
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
-        "outputPath": "dist/org",
+        "outputPath": "dist/frontend",
         "index": "src/index.html",
         "baseHref": "/",
         "main": "src/main.tsx",
@@ -48,15 +48,15 @@
       "executor": "@nx/webpack:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "org:build",
+        "buildTarget": "frontend:build",
         "hmr": true
       },
       "configurations": {
         "development": {
-          "buildTarget": "org:build:development"
+          "buildTarget": "frontend:build:development"
         },
         "production": {
-          "buildTarget": "org:build:production",
+          "buildTarget": "frontend:build:production",
           "hmr": false
         }
       }
