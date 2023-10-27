@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import {
   BranchesRepoService,
   BuildsRepoService,
+  StoriesDistRepoService,
   StoriesRepoService,
 } from '@repositories';
 import { MetadataPublishDto, PublishResultDto } from '@dto';
@@ -9,7 +10,6 @@ import * as pixelmatch from 'pixelmatch';
 import { PNG } from 'pngjs';
 import { StoryItemEntity } from '@entities';
 import { orderBy, findLast } from 'lodash';
-import { fromBuffer } from 'yauzl';
 
 @Injectable()
 export class PublisherService {
@@ -17,6 +17,7 @@ export class PublisherService {
     private readonly buildsService: BuildsRepoService,
     private readonly branchesService: BranchesRepoService,
     private readonly storiesService: StoriesRepoService,
+    private readonly storiesDistService: StoriesDistRepoService,
   ) {}
 
   private async hasDiffPrevBuild(
@@ -48,25 +49,11 @@ export class PublisherService {
     return res > 0;
   }
 
-  private unzipFile(buffer: Buffer): Promise<Buffer> {
-    return new Promise<any>((resolve, reject) => {
-      fromBuffer(buffer, (error, zipfile) => {
-        if (error) {
-          reject(error);
-          return;
-        }
-
-        // console.log('entry', zipfile.);
-        resolve(null);
-      });
-    });
-  }
-
   public async publishMetadata(
     storybookZipFile: Express.Multer.File,
     params: MetadataPublishDto,
   ): Promise<void> {
-    const foundBranch = await this.branchesService.getBranchByName(
+    let foundBranch = await this.branchesService.getBranchByName(
       params.branchName,
     );
     if (!foundBranch) {
@@ -74,17 +61,24 @@ export class PublisherService {
         params.projectId,
         params.branchName,
       );
+      foundBranch = await this.branchesService.getBranchByName(
+        params.branchName,
+      );
     }
     const newBuildId = await this.buildsService.createBuild(params.branchName);
-    const buildsInBranch = await this.buildsService.getBuildsByBranch(
+    /*const buildsInBranch = await this.buildsService.getBuildsByBranch(
       foundBranch.id,
     );
     const storiesInBuilds = await this.storiesService.getStories(
       buildsInBranch.map((x) => x.id),
+    );*/
+    await this.storiesDistService.uploadDist(
+      newBuildId,
+      storybookZipFile.buffer,
     );
 
-    const unzipped = await this.unzipFile(storybookZipFile.buffer);
-    console.log(unzipped);
+    /*const unzipped = await this.unzipFile(storybookZipFile.buffer);
+    console.log(unzipped);*/
     // for (let i = 0; i < data.length; i++) {
     //   const item = data[i];
     //   if (!(await this.hasDiffPrevBuild(newBuildId, item, storiesInBuilds))) {

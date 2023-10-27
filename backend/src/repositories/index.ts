@@ -1,5 +1,7 @@
-export * from './branches-repo/branches-repo.service';
-export * from './repositories-repo/repositories-repo.service';
-export * from './builds-repo/builds-repo.service';
+// created from 'create-ts-index'
+
+export * from './branches-repo';
+export * from './builds-repo';
+export * from './repositories-repo';
+export * from './stories-repo';
 export * from './repositories.module';
-export * from './stories-repo/stories-repo.service';

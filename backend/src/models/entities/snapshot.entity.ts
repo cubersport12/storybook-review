@@ -1,10 +1,10 @@
 import {
   Column,
   Entity,
-  JoinColumn, ManyToOne,
+  JoinColumn,
   OneToOne,
-  PrimaryGeneratedColumn
-} from "typeorm";
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { StoryItemEntity } from './story-item.entity';
 
 @Entity({

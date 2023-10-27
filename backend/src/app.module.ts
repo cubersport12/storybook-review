@@ -22,7 +22,7 @@ import {
     RepositoriesModule,
     TypeOrmModule.forRoot({
       type: 'mssql',
-      host: 'IVANOVAA10\\IVANOVAA',
+      host: 'localhost',
       username: 'prgacc',
       port: 1433,
       password: 'account',

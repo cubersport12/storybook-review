@@ -16,13 +16,13 @@ import { StoryDistEntity } from './story-dist.entity';
 export class BuildEntity {
   @PrimaryGeneratedColumn('increment')
   public readonly id?: number;
-  @Column( )
+  @Column()
   public readonly name?: string;
   @Column({
     type: 'date',
   })
   public readonly lastChanged?: Date;
-  @ManyToOne((x) => BranchEntity, (x) => x.builds)
+  @ManyToOne(() => BranchEntity, (x) => x.builds)
   public readonly branch?: BranchEntity;
   @Column()
   public readonly branchId?: string;

@@ -12,6 +12,7 @@ import {
   StoryDistEntity,
   StoryItemEntity,
 } from '@entities';
+import { StoriesDistRepoService } from './stories-repo';
 
 @Module({
   providers: [
@@ -19,12 +20,14 @@ import {
     BuildsRepoService,
     RepositoriesRepoService,
     StoriesRepoService,
+    StoriesDistRepoService,
   ],
   exports: [
     BranchesRepoService,
     BuildsRepoService,
     RepositoriesRepoService,
     StoriesRepoService,
+    StoriesDistRepoService,
   ],
   imports: [
     TypeOrmModule.forFeature([
