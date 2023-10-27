@@ -37,6 +37,7 @@
           ],
           "optimization": true,
           "outputHashing": "all",
+          "baseHref": "/storybook/",
           "sourceMap": false,
           "namedChunks": false,
           "extractLicenses": true,
@@ -49,7 +50,8 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "frontend:build",
-        "hmr": true
+        "hmr": true,
+        "proxyConfig": "proxy.conf.json"
       },
       "configurations": {
         "development": {

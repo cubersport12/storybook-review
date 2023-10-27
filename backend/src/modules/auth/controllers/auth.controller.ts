@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthService } from '../services/auth.service';
-import { LocalAuthGuard } from '../services/local-guard';
 import { Public } from '@entities';
 
 @Controller('auth')
@@ -19,7 +18,6 @@ export class AuthController {
 
   @Public()
   @Post('login')
-  @UseGuards(LocalAuthGuard)
   @ApiOperation({ summary: 'Авторизоваться в системе' })
   @ApiResponse({
     status: HttpStatus.OK,

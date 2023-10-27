@@ -13,7 +13,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {},
+    "paths": {
+      "@shared/components": ["src/app/shared/components"],
+      "@shared/themes": ["src/app/shared/themes"],
+      "@shared/hooks": ["src/app/shared/hooks"],
+      "@shared/utils": ["src/app/shared/utils"],
+      "@shared/api": ["src/app/shared/api"]
+    },
     "jsx": "react-jsx",
     "allowJs": false,
     "esModuleInterop": false,

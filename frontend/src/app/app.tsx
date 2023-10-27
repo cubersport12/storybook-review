@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
-
-import NxWelcome from './nx-welcome';
+import { AppBar, Box, Button, IconButton, Stack, Toolbar, Typography } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import { AppSBar } from '@shared/components';
 
 const StyledApp = styled.div`
   // Your style here
@@ -8,9 +9,9 @@ const StyledApp = styled.div`
 
 export function App() {
   return (
-    <StyledApp>
-      <NxWelcome title="frontend" />
-    </StyledApp>
+    <Stack>
+      <AppSBar />
+    </Stack>
   );
 }
 

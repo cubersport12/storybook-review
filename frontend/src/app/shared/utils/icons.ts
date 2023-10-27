@@ -1,0 +1,23 @@
+export const icons = {
+  brand: 'fa-regular fa-puzzle-piece',
+  collapse: 'fa-regular fa-chevron-down',
+  expand: 'fa-regular fa-chevron-right',
+  spinner: 'fa-regular fa-arrows-rotate',
+  animationSpinner: `fa-regular fa-arrows-rotate fa-spin`,
+  tree: 'fa-regular fa-sitemap',
+  dataSource: 'fa-regular fa-database',
+  home: 'fa-regular fa-house',
+  settings: 'fa-regular fa-gear',
+  add: 'fa-regular fa-square-plus',
+  delete: 'fa-regular fa-trash',
+  edit: 'fa-regular fa-square-pen',
+  apply: 'fa-regular fa-check',
+  menuEllipsis: 'fa-regular fa-ellipsis-vertical',
+  play: 'fa-regular fa-play',
+  search: 'fa-regular fa-magnifying-glass',
+  close: 'fa-regular fa-circle-xmark',
+  tasks: 'fa-regular fa-ballot-check',
+  master: 'fa-regular fa-wand-magic-sparkles',
+  question: 'fa-regular fa-circle-question',
+  job: 'fa-regular fa-calendar-day'
+};

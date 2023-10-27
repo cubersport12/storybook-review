@@ -1,0 +1,30 @@
+@import '@fontsource/roboto/300.css';
+@import '@fontsource/roboto/400.css';
+@import '@fontsource/roboto/500.css';
+@import '@fontsource/roboto/700.css';
+
+::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: lightgray;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 8px;
+    background-color: lightgray !important;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 0;
+    background-color: #007c87 !important;
+    border: none !important;
+}
+
+html, body, #root {
+    height: 100%;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+}
+
+body {
+    margin: 0 !important;
+}

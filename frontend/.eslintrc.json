@@ -1,25 +1,37 @@
 {
-  "root": true,
-  "ignorePatterns": ["!**/*"],
-  "plugins": ["@nx"],
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nx/typescript"],
-      "rules": {}
-    },
-    {
-      "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nx/javascript"],
-      "rules": {}
-    },
-    {
-      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
-      "env": {
-        "jest": true
-      },
-      "rules": {}
-    }
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "prettier"
   ],
-  "extends": ["plugin:@nx/react"]
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": ["./tsconfig.eslint.json"] // Specify it only for TypeScript files
+  },
+  "plugins": [
+    "react",
+    "prettier"
+  ],
+  "rules": {
+    "@typescript-eslint/promise-function-async": 0,
+    "@typescript-eslint/no-misused-promises": 0,
+    "prettier/prettier": [
+      "error",
+      {
+        "tabWidth": 2,
+        "singleQuote": true,
+        "quoteProps": "consistent",
+        "trailingComma": "none",
+        "bracketSpacing": true,
+        "arrowParens": "avoid",
+        "semi": true,
+        "printWidth": 150,
+        "endOfLine": "auto"
+      }
+    ]
+  }
 }

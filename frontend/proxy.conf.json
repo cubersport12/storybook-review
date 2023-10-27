@@ -1,0 +1,9 @@
+{
+  "/api/storybook": {
+    "target": "http://localhost:3000",
+    "pathRewrite": {
+      "^/api/storybook": ""
+    },
+    "logLevel": "debug"
+  }
+}
