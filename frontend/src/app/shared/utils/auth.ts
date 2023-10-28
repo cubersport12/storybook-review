@@ -32,7 +32,6 @@ export class AuthCookie {
       return;
     }
     this.model.userName = decoded.username;
-    console.info(this.model);
     Object.freeze(this.model);
   }
 }

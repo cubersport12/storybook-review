@@ -1,16 +1,14 @@
-import styled from '@emotion/styled';
-import { AppBar, Box, Button, IconButton, Stack, Toolbar, Typography } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Box, Stack } from '@mui/material';
 import { AppSBar } from '@shared/components';
-
-const StyledApp = styled.div`
-  // Your style here
-`;
+import { RevStoriesPage } from './shared/rev-stories';
 
 export function App() {
   return (
-    <Stack>
+    <Stack height="100%" overflow="hidden">
       <AppSBar />
+      <Box flexGrow={1} overflow="hidden">
+        <RevStoriesPage />
+      </Box>
     </Stack>
   );
 }

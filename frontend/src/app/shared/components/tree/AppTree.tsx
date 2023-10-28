@@ -5,6 +5,7 @@ import { merge, uniq, uniqueId } from 'lodash';
 import { CustomTreeItem } from './CumsomTreeItem';
 import { AppTreeNode, AppTreeNodeExtraOptions } from './types';
 import { Checkbox, Stack } from '@mui/material';
+import { ArrowDropDown, ArrowRight } from '@mui/icons-material';
 
 type AppTreeNodeExt = {
   isLoading?: boolean;
@@ -36,8 +37,12 @@ export const handleNodes = (parentId: string | null, map: Map<string | null, Nod
         />
       ) : null}
       <CustomTreeItem key={node.id} nodeId={node.id} label={node.label} icon={node.isLoading ? <i className={icons.animationSpinner} /> : null}>
-        {handleNodes(node.id, map, extraOptions)}
-        {node.expandable === false ? null : <TreeItem nodeId={uniqueId()} />}
+        {node.expandable === false ? null : (
+          <>
+            {handleNodes(node.id, map, extraOptions)}
+            {<TreeItem nodeId={uniqueId()} />}
+          </>
+        )}
       </CustomTreeItem>
     </Stack>
   ));
@@ -53,7 +58,7 @@ export const AppTree = ({
   onNodeCheck?: (nodeId: string, nodesIds: string[]) => void;
   onNodeSelect?: (nodeId: string) => void;
   nodes: AppTreeNode[];
-  getChildren?: (parentId: string) => Promise<AppTreeNode[]>;
+  getChildren?: (parentId: string, parentNode?: AppTreeNode) => Promise<AppTreeNode[]>;
 } & AppTreeNodeExtraOptions) => {
   const [nodesMap, setNodesMap] = useState(new Map<string | null, NodeStateModel>([[null, { isExpanded: true, nodes }]]));
   const [checkedNodes, setCheckedNodes] = useState<string[]>([]);
@@ -85,7 +90,11 @@ export const AppTree = ({
     if (setLoading(parentId, true)) {
       refreshNodesMap();
     }
-    getChildren(parentId).then(result => {
+    const parentNode = Array.from(nodesMap)
+      .map(x => x[1].nodes ?? [])
+      .flat()
+      .find(x => x.id === parentId);
+    getChildren(parentId, parentNode).then(result => {
       setLoading(parentId!, false);
       nodesMap.set(parentId!, { isExpanded: true, nodes: result });
       refreshNodesMap();
@@ -113,8 +122,8 @@ export const AppTree = ({
       sx={{ '.MuiTreeItem-content': { paddingLeft: 0 } }}
       onNodeToggle={handleToggle}
       onNodeSelect={handeSelect}
-      defaultCollapseIcon={<i className={icons.collapse} />}
-      defaultExpandIcon={<i className={icons.expand} />}
+      defaultCollapseIcon={<ArrowDropDown />}
+      defaultExpandIcon={<ArrowRight />}
     >
       {handleNodes(null, nodesMap, { canCheck, checkedNodes, handleCheck })}
     </TreeView>

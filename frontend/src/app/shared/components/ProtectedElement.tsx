@@ -3,7 +3,6 @@ import { ReactNode } from 'react';
 
 export const ProtectedElement = ({ children }: { children: ReactNode[] | ReactNode }) => {
   const { model } = useAuth();
-  console.info(model);
   if (model?.userName) {
     return <>{children}</>;
   }

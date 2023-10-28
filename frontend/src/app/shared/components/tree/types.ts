@@ -4,6 +4,7 @@ export type AppTreeNode = {
   meta?: any;
   icon?: string;
   expandable?: boolean;
+  type?: any;
 };
 
 export type AppTreeNodeExtraOptions = {

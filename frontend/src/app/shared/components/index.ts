@@ -10,3 +10,4 @@ export * from './AxiosErrorHandler';
 export * from './Page404';
 export * from './ProtectedElement';
 export * from './AppSBar';
+export * from './AppCard';
