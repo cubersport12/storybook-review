@@ -21,10 +21,10 @@ export class StoryItemEntity {
   public readonly status?: number;
   @ManyToOne(() => UserEntity)
   public readonly reviewer?: UserEntity;
-  @ManyToOne(() => BuildEntity, (x) => x.stories)
-  public readonly build?: BuildEntity;
-  @Column()
-  public readonly buildId?: number;
+  // @ManyToOne(() => BuildEntity, (x) => x.stories)
+  // public readonly build?: BuildEntity;
+  // @Column()
+  // public readonly buildId?: number;
   @OneToOne(() => SnapshotEntity, (x) => x.storyItem)
   public readonly snapshot?: SnapshotEntity;
 }

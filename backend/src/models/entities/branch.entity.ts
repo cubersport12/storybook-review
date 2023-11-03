@@ -3,10 +3,12 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { RepositoryEntity } from './repository.entity';
 import { BuildEntity } from './build.entity';
+import { StoryDistEntity } from '@entities';
 
 @Entity({
   name: 'Branches',
@@ -22,4 +24,6 @@ export class BranchEntity {
   public readonly id?: string;
   @Column({ unique: true, nullable: false })
   public readonly name?: string;
+  @OneToOne(() => StoryDistEntity, (x) => x.branch)
+  public readonly dist?: StoryDistEntity;
 }

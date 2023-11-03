@@ -14,11 +14,13 @@ import {
   StoryItemEntity,
   UserEntity,
 } from '@entities';
+import { StoriesDistModule } from './modules/stories-dist/stories-dist.module';
 
 @Module({
   imports: [
     AuthModule,
     ProjectsSetupModule,
+    StoriesDistModule,
     RepositoriesModule,
     TypeOrmModule.forRoot({
       type: 'mssql',

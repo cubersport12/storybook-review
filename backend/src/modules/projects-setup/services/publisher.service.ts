@@ -9,7 +9,7 @@ import { MetadataPublishDto, PublishResultDto } from '@dto';
 import * as pixelmatch from 'pixelmatch';
 import { PNG } from 'pngjs';
 import { StoryItemEntity } from '@entities';
-import { orderBy, findLast } from 'lodash';
+import { findLast } from 'lodash';
 
 @Injectable()
 export class PublisherService {
@@ -25,7 +25,7 @@ export class PublisherService {
     data: PublishResultDto,
     stories: StoryItemEntity[],
   ): Promise<boolean> {
-    const sortedStories = orderBy(stories, (x) => x.buildId);
+    const sortedStories = stories;
 
     const prevStory = findLast(sortedStories, (x) => x.name === data.title);
 
@@ -65,7 +65,7 @@ export class PublisherService {
         params.branchName,
       );
     }
-    const newBuildId = await this.buildsService.createBuild(params.branchName);
+    await this.buildsService.createBuild(params.branchName);
     /*const buildsInBranch = await this.buildsService.getBuildsByBranch(
       foundBranch.id,
     );
@@ -73,7 +73,7 @@ export class PublisherService {
       buildsInBranch.map((x) => x.id),
     );*/
     await this.storiesDistService.uploadDist(
-      newBuildId,
+      foundBranch.id,
       storybookZipFile.buffer,
     );
 

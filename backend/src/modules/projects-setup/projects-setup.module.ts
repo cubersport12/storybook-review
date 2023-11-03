@@ -8,7 +8,7 @@ import { BuildsController } from './controllers/builds.controller';
 import { StoriesController } from './controllers/stories.controller';
 
 @Module({
-  controllers: [
+  controllers: [ 
     ReposController,
     BranchesController,
     MetadataPublisherController,

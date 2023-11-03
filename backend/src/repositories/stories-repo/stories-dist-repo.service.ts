@@ -10,17 +10,25 @@ export class StoriesDistRepoService {
     private readonly storyDistRepo: Repository<StoryDistEntity>,
   ) {}
 
-  public async getDistByBranchId(id: number): Promise<StoryDistEntity> {
+  public async getDistByBranchId(id: string): Promise<StoryDistEntity> {
     return await this.storyDistRepo.findOneBy({
-      build: { id: id },
+      branch: { id: id },
     });
   }
 
-  public async uploadDist(buildId: number, dist: Buffer) {
-    const newDist = await this.storyDistRepo.save({
-      build: { id: buildId },
-      buffer: dist,
-    });
+  public async uploadDist(branchId: string, dist: Buffer) {
+    let found = (await this.storyDistRepo.findOneBy({
+      branch: { id: branchId },
+    })) as Partial<StoryDistEntity>;
+    if (Boolean(found)) {
+      found.buffer = dist;
+    } else {
+      found = {
+        branch: { id: branchId },
+        buffer: dist,
+      };
+    }
+    const newDist = await this.storyDistRepo.save(found);
     return newDist.id;
   }
 }

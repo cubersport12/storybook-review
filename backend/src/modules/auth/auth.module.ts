@@ -11,7 +11,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '@entities';
 
 @Module({
-  controllers: [AuthController],
+  controllers: [AuthController], 
   imports: [
     JwtModule.register({
       secret: JwtConstants.Secret,

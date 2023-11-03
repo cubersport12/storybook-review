@@ -26,8 +26,4 @@ export class BuildEntity {
   public readonly branch?: BranchEntity;
   @Column()
   public readonly branchId?: string;
-  @OneToMany(() => StoryItemEntity, (x) => x.build)
-  public readonly stories?: StoryItemEntity[];
-  @OneToOne(() => StoryDistEntity, (x) => x.build)
-  public readonly dist?: StoryDistEntity;
 }

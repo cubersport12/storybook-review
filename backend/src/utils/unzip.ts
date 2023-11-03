@@ -12,7 +12,6 @@ export const unzipBuffer = (buffer: Buffer, unzipToDir: string) => {
       // Same as example we open the zip.
       yauzl.fromBuffer(buffer, { lazyEntries: true }, (err, zipFile) => {
         if (err) {
-          zipFile.close();
           reject(err);
           return;
         }

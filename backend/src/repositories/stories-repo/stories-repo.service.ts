@@ -20,10 +20,7 @@ export class StoriesRepoService {
     buildId: number,
     title: string,
   ): Promise<StoryItemEntity> {
-    return await this.storiesRepo.findOneBy({
-      build: { id: buildId },
-      name: title,
-    });
+    return undefined;
   }
 
   public async getSnapshot(storyId: string): Promise<SnapshotEntity> {
@@ -31,20 +28,22 @@ export class StoriesRepoService {
   }
 
   public async getStories(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     buildId: number | number[],
   ): Promise<StoryItemEntity[]> {
-    if (Array.isArray(buildId)) {
-      if (buildId.length === 0) {
-        return [];
-      }
-      return this.storiesRepo.findBy(
-        buildId.map((x) => ({ build: { id: x } })),
-      );
-    }
-    if (!buildId) {
-      return [];
-    }
-    return this.storiesRepo.findBy({ build: { id: buildId } });
+    return [];
+    // if (Array.isArray(buildId)) {
+    //   if (buildId.length === 0) {
+    //     return [];
+    //   }
+    //   return this.storiesRepo.findBy(
+    //     buildId.map((x) => ({ build: { id: x } })),
+    //   );
+    // }
+    // if (!buildId) {
+    //   return [];
+    // }
+    // return this.storiesRepo.findBy({ build: { id: buildId } });
   }
 
   public async createStory(

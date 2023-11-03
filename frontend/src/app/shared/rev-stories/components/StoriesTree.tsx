@@ -22,7 +22,7 @@ export const StoriesTree = () => {
             resolve(
               r.map(x => ({
                 id: x.id,
-                label: x.name,
+                label: x.name!,
                 expandable: true,
                 meta: x,
                 type: PseudoType.Branch

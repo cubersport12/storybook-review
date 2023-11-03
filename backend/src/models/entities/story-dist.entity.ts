@@ -5,7 +5,8 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { BuildEntity } from './build.entity';
+// eslint-disable-next-line prettier/prettier
+import { BranchEntity } from '@entities';
 
 @Entity({
   name: 'StoriesDist',
@@ -15,7 +16,7 @@ export class StoryDistEntity {
   public readonly id: string;
   @Column({ nullable: true, type: 'varbinary', length: 'MAX' })
   public buffer: Buffer;
-  @OneToOne(() => BuildEntity, (x) => x.dist)
+  @OneToOne(() => BranchEntity, (x) => x.dist)
   @JoinColumn()
-  public readonly build: BuildEntity;
+  public readonly branch: BranchEntity;
 }

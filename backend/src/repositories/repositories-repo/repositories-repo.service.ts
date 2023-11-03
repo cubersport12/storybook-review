@@ -15,6 +15,12 @@ export class RepositoriesRepoService {
     return repos;
   }
 
+  public findReporById(id: string) {
+    return this.repository.findOneBy({
+      id: id,
+    });
+  }
+
   public async createRepository(
     repository: Omit<RepositoryEntity, 'id'>,
   ): Promise<string> {
