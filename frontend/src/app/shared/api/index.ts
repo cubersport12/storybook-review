@@ -21,6 +21,7 @@ export { AuthService } from './services/AuthService';
 export { BranchesService } from './services/BranchesService';
 export { BuildsService } from './services/BuildsService';
 export { DefaultService } from './services/DefaultService';
+export { DistService } from './services/DistService';
 export { PublisherService } from './services/PublisherService';
 export { ReposService } from './services/ReposService';
 export { StoriesService } from './services/StoriesService';

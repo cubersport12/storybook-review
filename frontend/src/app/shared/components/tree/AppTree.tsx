@@ -56,7 +56,7 @@ export const AppTree = ({
   onNodeCheck
 }: {
   onNodeCheck?: (nodeId: string, nodesIds: string[]) => void;
-  onNodeSelect?: (nodeId: string) => void;
+  onNodeSelect?: (node: AppTreeNode) => void;
   nodes: AppTreeNode[];
   getChildren?: (parentId: string, parentNode?: AppTreeNode) => Promise<AppTreeNode[]>;
 } & AppTreeNodeExtraOptions) => {
@@ -114,7 +114,11 @@ export const AppTree = ({
   const handeSelect = (event: SyntheticEvent, nodeId: string) => {
     handleCheck(nodeId);
     if (onNodeSelect) {
-      onNodeSelect(nodeId);
+      const found = findNode(nodeId);
+      if (!found) {
+        throw new Error();
+      }
+      onNodeSelect(found);
     }
   };
   return (
