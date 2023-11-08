@@ -1,3 +1,4 @@
 
 backend/.npmrc
 frontend/.npmrc
+frontend/package-lock.json
