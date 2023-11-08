@@ -1,10 +1,9 @@
 import { program } from 'commander'
-import { OpenAPI, PublisherService } from './../api'
+import { OpenAPI, PublisherService } from './api'
 import { ZipFile } from 'yazl'
 import { existsSync, readdirSync } from 'fs'
-import { join } from 'path'
-// @ts-ignore
 import streamToBlob from 'stream-to-blob'
+import * as path from "path";
 
 type OptionsType = Record<'api' | 'dir' | 'branch' | 'who' | 'projectId', string>
 
@@ -17,15 +16,16 @@ program.option('--projectId <projectId>', '--api=<api>')
 const command = program.parse(process.argv)
 const options = command.opts() as OptionsType
 OpenAPI.BASE = options.api
-if (!existsSync(options.dir)) {
-  throw new Error(`Нет папки по пути [${options.dir}]`)
+const dir =path.join(path.dirname(require.main.filename),path.relative(path.dirname(require.main.filename), options.dir));
+if (!existsSync(dir)) {
+  throw new Error(`Нет папки по пути [${dir}]`)
 }
 
 const publishData = async () => {
-  console.info(`Начинаем архивирование папки [${options.dir}]`)
-  const files = readdirSync(options.dir)
+  console.info(`Начинаем архивирование папки [${dir}]`)
+  const files = readdirSync(dir)
   const zip = new ZipFile()
-  files.forEach(file => zip.addFile(join(options.dir, file), file))
+  files.forEach(file => zip.addFile(path.join(dir, file), file))
   zip.end()
 
   const blob = await streamToBlob(zip.outputStream)
