@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { BranchesService, BuildsService, ReposService } from '@shared/api';
+import { BranchesService, ReposService } from '@shared/api';
 import { AppCard, AppTree, AppTreeNode } from '@shared/components';
-import { icons } from '@shared/utils';
 import { useNavigate } from 'react-router-dom';
+import { replace } from 'lodash';
 
 enum PseudoType {
   Repo,
@@ -43,7 +43,7 @@ export const StoriesTree = () => {
             resolve(
               r.map(x => ({
                 id: x.id,
-                label: x.name!,
+                label: replace(x.name!, 'refs/heads/', ''),
                 expandable: false,
                 meta: createNodeMeta(node, x),
                 type: PseudoType.Branch
