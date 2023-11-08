@@ -1,7 +1,7 @@
 import { Box, Button, Divider, Stack, Typography, useTheme } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { AppInput } from './AppInput';
-import { icons } from '@shared/utils';
+import { getBaseHref, icons } from '@shared/utils';
 import { useMutation } from '@tanstack/react-query';
 import { AuthService } from '@shared/api';
 import { useAuth } from '@shared/hooks';
@@ -31,7 +31,7 @@ export const AppLogin = () => {
       }),
     onSuccess: r => {
       setBearer(r.access_token);
-      location.replace(new URL(location.origin).href);
+      location.replace(`${new URL(location.origin).href}${getBaseHref()}`);
     }
   });
   const {

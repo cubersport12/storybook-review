@@ -28,7 +28,6 @@ export class StoriesDistController {
     @Param('branchId') branchId: string,
     @Param('fileName') fileName?: string,
   ) {
-    console.info(repoId, branchId, fileName);
     const path = await this.storiesRepo.unzipDist(repoId, branchId);
     return response.sendFile(join(path, fileName ?? 'index.html'));
   }
