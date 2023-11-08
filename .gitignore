@@ -1,4 +1,7 @@
-
 backend/.npmrc
 frontend/.npmrc
 frontend/package-lock.json
+scripts/node_modules
+backend/package-lock.json
+scripts/.vscode/extensions.json
+scripts/package-lock.json
