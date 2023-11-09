@@ -53,15 +53,11 @@ export class PublisherService {
     storybookZipFile: Express.Multer.File,
     params: MetadataPublishDto,
   ): Promise<void> {
-    let foundBranch = await this.branchesService.getBranchByName(
-      params.branchName,
-    );
-    if (!foundBranch) {
-      await this.branchesService.createBranch(
+    const branches = await this.branchesService.getBranches(params.projectId);
+    let branchId = branches.find((x) => x.name === params.branchName)?.id;
+    if (!branchId) {
+      branchId = await this.branchesService.createBranch(
         params.projectId,
-        params.branchName,
-      );
-      foundBranch = await this.branchesService.getBranchByName(
         params.branchName,
       );
     }
@@ -72,10 +68,7 @@ export class PublisherService {
     const storiesInBuilds = await this.storiesService.getStories(
       buildsInBranch.map((x) => x.id),
     );*/
-    await this.storiesDistService.uploadDist(
-      foundBranch.id,
-      storybookZipFile.buffer,
-    );
+    await this.storiesDistService.uploadDist(branchId, storybookZipFile.buffer);
 
     /*const unzipped = await this.unzipFile(storybookZipFile.buffer);
     console.log(unzipped);*/

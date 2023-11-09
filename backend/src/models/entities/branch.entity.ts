@@ -22,7 +22,7 @@ export class BranchEntity {
   public readonly builds?: BuildEntity[];
   @PrimaryGeneratedColumn('uuid')
   public readonly id?: string;
-  @Column({ unique: true, nullable: false })
+  @Column({ nullable: false })
   public readonly name?: string;
   @OneToOne(() => StoryDistEntity, (x) => x.branch)
   public readonly dist?: StoryDistEntity;
