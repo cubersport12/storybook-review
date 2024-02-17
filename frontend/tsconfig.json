@@ -18,7 +18,8 @@
       "@shared/themes": ["src/app/shared/themes"],
       "@shared/hooks": ["src/app/shared/hooks"],
       "@shared/utils": ["src/app/shared/utils"],
-      "@shared/api": ["src/app/shared/api"]
+      "@shared/api": ["src/app/shared/api"],
+      "@shared/store": ["src/app/shared/store"],
     },
     "jsx": "react-jsx",
     "allowJs": false,

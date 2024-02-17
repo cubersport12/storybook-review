@@ -1,7 +1,6 @@
 import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 import { useAuth } from '@shared/hooks';
-import { AppBarBranchSelector } from '../AppBarBranchSelector';
+import AppBarBranchSelector from './AppBarBranchNavigator';
 
 export const AppSBar = () => {
   const {
