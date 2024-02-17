@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { BranchDto } from '../models/BranchDto';
 import type { CreateBranchDto } from '../models/CreateBranchDto';
+import type { RepoBranchDto } from '../models/RepoBranchDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -24,6 +25,23 @@ repoId: string,
             url: '/branches/list/{repoId}',
             path: {
                 'repoId': repoId,
+            },
+        });
+    }
+
+    /**
+     * @param ids 
+     * @returns RepoBranchDto 
+     * @throws ApiError
+     */
+    public static branchesControllerGetBranchesByRepoIds(
+ids: Array<string>,
+): CancelablePromise<Array<RepoBranchDto>> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/branches/listByReporIds/{ids}',
+            path: {
+                'ids': ids,
             },
         });
     }

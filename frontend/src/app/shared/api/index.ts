@@ -16,6 +16,7 @@ export type { LoginResultDto } from './models/LoginResultDto';
 export type { LoginUserDto } from './models/LoginUserDto';
 export type { MetadataPublishDto } from './models/MetadataPublishDto';
 export type { ProjectItemDto } from './models/ProjectItemDto';
+export type { RepoBranchDto } from './models/RepoBranchDto';
 
 export { AuthService } from './services/AuthService';
 export { BranchesService } from './services/BranchesService';

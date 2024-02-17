@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { BranchEntity } from '@entities';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 
 @Injectable()
 export class BranchesRepoService {
@@ -10,7 +10,12 @@ export class BranchesRepoService {
     private readonly branchRepo: Repository<BranchEntity>,
   ) {}
 
-  public async getBranches(repoId: string): Promise<BranchEntity[]> {
+  public async getBranches(repoId: string | string[]): Promise<BranchEntity[]> {
+    if (Array.isArray(repoId)) {
+      return await this.branchRepo.find({
+        where: [{ repositoryId: In(repoId) }],
+      });
+    }
     return await this.branchRepo.findBy({ repository: { id: repoId } });
   }
 

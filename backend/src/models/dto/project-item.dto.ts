@@ -1,5 +1,4 @@
-import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
-import { RepositoryEntity } from '@entities';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class ProjectItemDto {
   @ApiProperty({

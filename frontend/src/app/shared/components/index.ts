@@ -9,5 +9,5 @@ export * from './AppSelect';
 export * from './AxiosErrorHandler';
 export * from './Page404';
 export * from './ProtectedElement';
-export * from './AppSBar';
+export * from './app-bar/AppSBar';
 export * from './AppCard';
