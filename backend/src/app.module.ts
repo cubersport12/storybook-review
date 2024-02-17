@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
@@ -24,7 +24,7 @@ import { StoriesDistModule } from './modules/stories-dist/stories-dist.module';
     RepositoriesModule,
     TypeOrmModule.forRoot({
       type: 'mssql',
-      host: 'IVANOVAA10\\IVANOVAA',
+      host: 'localhost',
       username: 'prgacc',
       port: 1433,
       password: 'account',
@@ -47,6 +47,6 @@ import { StoriesDistModule } from './modules/stories-dist/stories-dist.module';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, Logger],
 })
 export class AppModule {}

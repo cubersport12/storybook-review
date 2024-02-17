@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { ReposController } from './controllers/repos.controller';
 import { RepositoriesModule } from '@repositories';
 import { BranchesController } from './controllers/branches.controller';
@@ -8,7 +8,7 @@ import { BuildsController } from './controllers/builds.controller';
 import { StoriesController } from './controllers/stories.controller';
 
 @Module({
-  controllers: [ 
+  controllers: [
     ReposController,
     BranchesController,
     MetadataPublisherController,
@@ -16,6 +16,6 @@ import { StoriesController } from './controllers/stories.controller';
     StoriesController,
   ],
   imports: [RepositoriesModule],
-  providers: [PublisherService],
+  providers: [PublisherService, Logger],
 })
 export class ProjectsSetupModule {}

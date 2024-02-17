@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import {
   BranchesRepoService,
   BuildsRepoService,
@@ -10,6 +10,8 @@ import * as pixelmatch from 'pixelmatch';
 import { PNG } from 'pngjs';
 import { StoryItemEntity } from '@entities';
 import { findLast } from 'lodash';
+import { existsSync, rmSync } from 'fs';
+import { distFolder } from '@utils';
 
 @Injectable()
 export class PublisherService {
@@ -18,6 +20,7 @@ export class PublisherService {
     private readonly branchesService: BranchesRepoService,
     private readonly storiesService: StoriesRepoService,
     private readonly storiesDistService: StoriesDistRepoService,
+    private readonly logger: Logger,
   ) {}
 
   private async hasDiffPrevBuild(
@@ -53,6 +56,9 @@ export class PublisherService {
     storybookZipFile: Express.Multer.File,
     params: MetadataPublishDto,
   ): Promise<void> {
+    this.logger.log(
+      `Начало публикации. Ветка: ${params.branchName}. Кто: ${params.who}. ID: ${params.projectId}`,
+    );
     const branches = await this.branchesService.getBranches(params.projectId);
     let branchId = branches.find((x) => x.name === params.branchName)?.id;
     if (!branchId) {
@@ -70,20 +76,11 @@ export class PublisherService {
     );*/
     await this.storiesDistService.uploadDist(branchId, storybookZipFile.buffer);
 
-    /*const unzipped = await this.unzipFile(storybookZipFile.buffer);
-    console.log(unzipped);*/
-    // for (let i = 0; i < data.length; i++) {
-    //   const item = data[i];
-    //   if (!(await this.hasDiffPrevBuild(newBuildId, item, storiesInBuilds))) {
-    //     return;
-    //   }
-    //   const newStoryId = await this.storiesService.createStory(newBuildId, {
-    //     name: item.title,
-    //     status: StoryItemStatus.Wait,
-    //   });
-    //   await this.storiesService.uploadImages(newStoryId, [
-    //     Buffer.from(item.snapshot.data),
-    //   ]);
-    // }
+    if (existsSync(distFolder)) {
+      rmSync(distFolder, { recursive: true, force: true });
+      this.logger.log(
+        `Папка "${distFolder}" из ветки ${params.branchName} удалена!`,
+      );
+    }
   }
 }
