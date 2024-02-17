@@ -37,6 +37,7 @@ const SimpleSelect = (props: PropsType & { field?: any }): any => {
         value={props.field?.value ?? props.value ?? ''}
         labelId={labelId}
         id={id}
+        sx={{ color: 'white' }}
         label={props.label}
         disabled={props.disabled!}
         renderValue={(selected: any) => {

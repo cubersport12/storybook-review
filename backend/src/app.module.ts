@@ -24,9 +24,8 @@ import { StoriesDistModule } from './modules/stories-dist/stories-dist.module';
     RepositoriesModule,
     TypeOrmModule.forRoot({
       type: 'mssql',
-      host: 'localhost',
+      host: 'IVANOVAA10.zav.mir\\IVANOVAA',
       username: 'prgacc',
-      port: 1433,
       password: 'account',
       database: 'Storybook',
       autoLoadEntities: true,

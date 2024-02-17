@@ -2,9 +2,11 @@ import { BranchDto, BranchesService, RepoBranchDto, ReposService } from '@shared
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { AppSelect } from './AppSelect';
-import { MenuItem } from '@mui/material';
+import { Avatar, MenuItem, Stack, Typography } from '@mui/material';
 import { observer } from 'mobx-react';
-import { useStore } from '../store/StoreProvider';
+import { useStore } from '@shared/store';
+import { replace } from 'lodash';
+import { stringToColour } from '../utils';
 
 const BranchSelector = ({ valueChange, value }: { valueChange?: (b: string) => void; value: string | undefined }) => {
   const { reposStore, branchesStore } = useStore();
@@ -20,11 +22,23 @@ const BranchSelector = ({ valueChange, value }: { valueChange?: (b: string) => v
 
   return (
     <AppSelect value={value} onChange={e => valueChange && valueChange(e)}>
-      {branches.map(x => (
-        <MenuItem key={x?.id}>
-          {x?.name} ({repos.find(p => p?.id === x?.repositoryId)?.name})
-        </MenuItem>
-      ))}
+      {branches.map(x => {
+        const repoName = repos.find(p => p?.id === x?.repositoryId)?.name;
+        return (
+          <MenuItem key={x?.id} value={x.id}>
+            <Stack direction="row" alignItems="center" gap="5px">
+              <Avatar sx={{ width: '22px', height: '22px', fontSize: '12px', backgroundColor: stringToColour(repoName ?? '') }}>
+                {repoName
+                  ?.split(' ')
+                  .map(s => s.at(0)?.toUpperCase())
+                  .join('')}
+              </Avatar>
+
+              {replace(x.name!, 'refs/heads/', '')}
+            </Stack>
+          </MenuItem>
+        );
+      })}
     </AppSelect>
   );
 };

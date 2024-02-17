@@ -3,12 +3,17 @@ import { useStore } from '@shared/store';
 import { useEffect, useState } from 'react';
 import { BranchDto } from '@shared/api';
 import BranchSelector from '../BranchSelector';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Stack, Typography } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCodeBranch } from '@fortawesome/free-solid-svg-icons';
 
 const AppBarBranchSelector = () => {
-  const [branchId, setBranchId] = useState<string | undefined>(undefined);
+  const { branchId: paramBranchId } = useParams();
+  const [branchId, setBranchId] = useState<string | undefined>(paramBranchId);
   const { branchesStore, reposStore } = useStore();
   const navigate = useNavigate();
+  console.info(branchId);
 
   const handleBranchId = (id: string | undefined) => {
     setBranchId(id);
@@ -17,7 +22,7 @@ const AppBarBranchSelector = () => {
     }
     const b = branchesStore.branches.find(x => x.id === id);
     const r = reposStore.repos.find(x => x.id === b?.repositoryId);
-    navigate(`${r?.id!}/${b?.id}`, { relative: 'route' });
+    navigate(`${r?.id!}/${b?.id}`, { replace: true });
   };
 
   useEffect(() => {
@@ -26,7 +31,13 @@ const AppBarBranchSelector = () => {
       handleBranchId(id);
     }
   }, [branchesStore.branches]);
-  return <BranchSelector value={branchId} valueChange={handleBranchId} />;
+  return (
+    <Stack gap="5px" direction="row" alignItems="center">
+      <FontAwesomeIcon icon={faCodeBranch} />
+      <Typography variant="subtitle1">Текущая ветка</Typography>
+      <BranchSelector value={branchId} valueChange={handleBranchId} />
+    </Stack>
+  );
 };
 
 export default observer(AppBarBranchSelector);

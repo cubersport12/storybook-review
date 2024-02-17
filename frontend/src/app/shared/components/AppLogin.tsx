@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Button, Divider, Stack, Typography, styled, useTheme } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { AppInput } from './AppInput';
 import { getBaseHref, icons } from '@shared/utils';
@@ -10,6 +10,14 @@ type FormType = {
   username?: string;
   password?: string;
 };
+
+const StyledForm = styled('form')(() => ({
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+}));
 
 export const AppLogin = () => {
   const {
@@ -35,7 +43,7 @@ export const AppLogin = () => {
     }
   });
   const {
-    palette: { primary }
+    palette: { background, grey }
   } = useTheme();
   const handleLogin = () => {
     loginMutation.mutate({
@@ -45,19 +53,26 @@ export const AppLogin = () => {
   };
 
   return (
-    <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center">
-      <Stack gap={1} border={1} borderColor={primary.dark} width={300} borderRadius={2} padding={2} bgcolor={primary.light}>
+    <StyledForm>
+      <Stack gap={1} border={1} borderColor={grey[400]} width={300} borderRadius={2} padding={2} bgcolor={background.default}>
         <Typography alignSelf="center" variant="h5">
           Вход в систему
         </Typography>
         <Divider />
         <AppInput label="Логин" controller={{ control, name: 'username', rules: { required: true } }} />
         <AppInput label="Пароль" type="password" controller={{ control, name: 'password', rules: { required: true } }} />
-        <Button onClick={handleLogin} disabled={!isValid || !isDirty || loginMutation.isPending} fullWidth variant="contained" color="primary">
+        <Button
+          type="submit"
+          onClick={handleLogin}
+          disabled={!isValid || !isDirty || loginMutation.isPending}
+          fullWidth
+          variant="contained"
+          color="primary"
+        >
           <i className={icons.apply}></i>
           Войти
         </Button>
       </Stack>
-    </Box>
+    </StyledForm>
   );
 };

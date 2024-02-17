@@ -109,9 +109,9 @@ export const defaultTheme = createTheme({
   },
   palette: {
     primary: {
-      main: '#3f3f3f',
-      light: '#6f6f6f',
-      dark: '#000000',
+      main: 'rgb(30, 167, 253)',
+      light: 'rgb(109, 199, 255)',
+      dark: 'rgb(20, 118, 179)',
       contrastText: '#FFFFFF'
     },
     secondary: {
