@@ -22,7 +22,7 @@ const AppBarBranchSelector = () => {
     }
     const b = branchesStore.branches.find(x => x.id === id);
     const r = reposStore.repos.find(x => x.id === b?.repositoryId);
-    navigate(`${r?.id!}/${b?.id}`, { replace: true });
+    navigate(`/${r?.id!}/${b?.id}`, { replace: true });
   };
 
   useEffect(() => {
