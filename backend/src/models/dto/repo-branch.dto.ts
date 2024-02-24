@@ -6,7 +6,7 @@ export class RepoBranchDto {
   public repoId: string;
   @ApiProperty({
     type: BranchDto,
-    isArray: true
+    isArray: true,
   })
   public branches: BranchDto[];
 }

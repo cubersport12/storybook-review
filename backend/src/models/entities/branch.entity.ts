@@ -10,8 +10,10 @@ import { RepositoryEntity } from './repository.entity';
 import { BuildEntity } from './build.entity';
 import { StoryDistEntity } from '@entities';
 
+export const BRANCH_ENTITY_NAME = 'Branches';
+
 @Entity({
-  name: 'Branches',
+  name: BRANCH_ENTITY_NAME,
 })
 export class BranchEntity {
   @ManyToOne((x) => RepositoryEntity, (x) => x.branches)

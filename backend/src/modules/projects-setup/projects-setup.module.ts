@@ -6,6 +6,7 @@ import { MetadataPublisherController } from './controllers/metadata-publisher.co
 import { PublisherService } from './services/publisher.service';
 import { BuildsController } from './controllers/builds.controller';
 import { StoriesController } from './controllers/stories.controller';
+import { BranchesQueriesService } from './services/branches-queries.service';
 
 @Module({
   controllers: [
@@ -16,6 +17,6 @@ import { StoriesController } from './controllers/stories.controller';
     StoriesController,
   ],
   imports: [RepositoriesModule],
-  providers: [PublisherService, Logger],
+  providers: [PublisherService, BranchesQueriesService, Logger],
 })
 export class ProjectsSetupModule {}

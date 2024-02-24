@@ -74,7 +74,11 @@ export class PublisherService {
     const storiesInBuilds = await this.storiesService.getStories(
       buildsInBranch.map((x) => x.id),
     );*/
-    await this.storiesDistService.uploadDist(branchId, storybookZipFile.buffer);
+    await this.storiesDistService.uploadDist(
+      branchId,
+      storybookZipFile.buffer,
+      params.who,
+    );
 
     if (existsSync(distFolder)) {
       rmSync(distFolder, { recursive: true, force: true });
