@@ -20,7 +20,7 @@ export class BranchesStore {
 
     this.isLoading = true;
 
-    BranchesService.branchesControllerGetBranchesByRepoIds(ids).then(
+    BranchesService.branchesControllerGetBranchesByRepoIds({ reposIds: ids }).then(
       action(result => {
         this.branches = result.map(x => x.branches).flat();
         this.isLoading = false;

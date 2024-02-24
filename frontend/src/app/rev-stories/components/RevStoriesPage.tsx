@@ -4,5 +4,6 @@ import { Route, Routes } from 'react-router-dom';
 import { StoriesContent } from './StoriesContent';
 
 export const RevStoriesPage = () => {
-  return <StoriesContent />;
+  // return <StoriesContent />;
+  return <></>;
 };

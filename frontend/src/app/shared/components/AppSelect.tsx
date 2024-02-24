@@ -15,6 +15,7 @@ type PropsType = {
   disabled?: boolean;
   variant?: 'standard' | 'outlined' | 'filled';
   multiple?: boolean;
+  renderValue?: (value: any) => ReactNode;
 };
 
 const SimpleSelect = (props: PropsType & { field?: any }): any => {
@@ -40,24 +41,27 @@ const SimpleSelect = (props: PropsType & { field?: any }): any => {
         sx={{ color: 'white' }}
         label={props.label}
         disabled={props.disabled!}
-        renderValue={(selected: any) => {
-          const values = props.children
-            ?.map((y: any) => ({
-              label: y.props?.children,
-              value: y.props?.value
-            }))
-            .filter(x => Boolean(x));
-          if (Array.isArray(selected)) {
-            return selected
-              .map(x => {
-                const f = values?.find(y => y.value === x);
-                return f?.label ?? x;
-              })
-              .join(',');
-          }
+        renderValue={
+          props.renderValue ||
+          ((selected: any) => {
+            const values = props.children
+              ?.map((y: any) => ({
+                label: y.props?.children,
+                value: y.props?.value
+              }))
+              .filter(x => Boolean(x));
+            if (Array.isArray(selected)) {
+              return selected
+                .map(x => {
+                  const f = values?.find(y => y.value === x);
+                  return f?.label ?? x;
+                })
+                .join(',');
+            }
 
-          return values?.find(y => y.value === selected)?.label ?? selected;
-        }}
+            return values?.find(y => y.value === selected)?.label ?? selected;
+          })
+        }
         onChange={e => {
           if (props.field) {
             props.field.onChange(e);

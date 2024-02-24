@@ -49,6 +49,15 @@ export const defaultTheme = createTheme({
         }
       }
     },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          '.MuiTypography-caption': {
+            color: 'black !important'
+          }
+        }
+      }
+    },
     MuiFormControlLabel: {
       styleOverrides: {
         root: {

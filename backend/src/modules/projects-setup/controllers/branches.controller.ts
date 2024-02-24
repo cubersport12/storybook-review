@@ -6,7 +6,12 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { BranchesRepoService } from '@repositories';
-import { BranchDto, CreateBranchDto, RepoBranchDto } from '@dto';
+import {
+  BranchDto,
+  CreateBranchDto,
+  GetBranchesByRepoIdsQuery,
+  RepoBranchDto,
+} from '@dto';
 import { Public } from '@entities';
 import { groupBy, map } from 'lodash';
 import { BranchesQueriesService } from '../services/branches-queries.service';
@@ -31,10 +36,10 @@ export class BranchesController {
   public async getBranches(
     @Param('repoId') repoId: string,
   ): Promise<BranchDto[]> {
-    return await this.dtoServices.getBranches(repoId);
+    return await this.dtoServices.getBranches([repoId]);
   }
 
-  @Post('listByReporIds/:ids')
+  @Post('listByRepos')
   @Public()
   @ApiSecurity('basic')
   @ApiResponse({
@@ -43,9 +48,9 @@ export class BranchesController {
     isArray: true,
   })
   public async getBranchesByRepoIds(
-    @Param('ids') ids: string[],
+    @Body() query: GetBranchesByRepoIdsQuery,
   ): Promise<RepoBranchDto[]> {
-    const branches = await this.dtoServices.getBranches(ids);
+    const branches = await this.dtoServices.getBranches(query.reposIds);
     const result = map(
       groupBy(branches, (x) => x.repositoryId),
       (branches, repoId) => {

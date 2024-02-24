@@ -11,6 +11,7 @@ export type { BranchDto } from './models/BranchDto';
 export type { BuildItemDto } from './models/BuildItemDto';
 export type { CreateBranchDto } from './models/CreateBranchDto';
 export type { CreateRepoDto } from './models/CreateRepoDto';
+export type { GetBranchesByRepoIdsQuery } from './models/GetBranchesByRepoIdsQuery';
 export type { ListProjectsDto } from './models/ListProjectsDto';
 export type { LoginResultDto } from './models/LoginResultDto';
 export type { LoginUserDto } from './models/LoginUserDto';

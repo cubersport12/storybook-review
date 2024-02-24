@@ -11,6 +11,7 @@ export class RepositoriesRepoService {
   ) {}
 
   public async getRepositories(): Promise<RepositoryEntity[]> {
+    console.info('getRepositories');
     const repos = await this.repository.find();
     return repos;
   }

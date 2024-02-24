@@ -16,11 +16,13 @@ export class StoriesDistRepoService {
     });
   }
 
-  public async load(branchesIds: string[]): Promise<StoryDistEntity[]> {
+  public async loadByReposIds(reposIds: string[]): Promise<StoryDistEntity[]> {
+    console.info('listByReporIds', reposIds);
+
     const s = await this.storyDistRepo.find({
       relations: ['branch'],
       select: ['timestamp', 'branch', 'id', 'owner'],
-      where: { branch: { id: In(branchesIds) } },
+      where: { branch: { repositoryId: In(reposIds) } },
     });
 
     return s;

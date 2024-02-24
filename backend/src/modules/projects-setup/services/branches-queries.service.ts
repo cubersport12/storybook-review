@@ -9,12 +9,12 @@ export class BranchesQueriesService {
     private readonly distRepo: StoriesDistRepoService,
   ) {}
 
-  public async getBranches(repoId: string | string[]): Promise<BranchDto[]> {
-    const ids = Array.isArray(repoId) ? repoId : [repoId];
-    if (!ids || ids.length === 0) {
+  public async getBranches(reposIds: string[]): Promise<BranchDto[]> {
+    if (!reposIds || reposIds.length === 0) {
       return [];
     }
-    const t = await this.distRepo.load(ids);
+
+    const t = await this.distRepo.loadByReposIds(reposIds);
     return t.map((x) => {
       return {
         id: x.branch.id,

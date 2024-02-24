@@ -11,3 +11,4 @@ export * from './build-item.dto';
 export * from './story-item.dto';
 export * from './create-repo.dto';
 export * from './repo-branch.dto';
+export * from './get-branches-by-repos.dto';
