@@ -3,7 +3,7 @@ import { action, makeAutoObservable, observable } from 'mobx';
 
 export class BranchesStore {
   public isLoading: boolean = false;
-  public branches: BranchDto[] = [];
+  public branches: BranchDto[] | undefined;
 
   constructor() {
     makeAutoObservable(this, {
@@ -14,7 +14,7 @@ export class BranchesStore {
   }
 
   public fetchBranchesByRepos(ids: string[]): void {
-    if (this.isLoading || this.branches.length > 0) {
+    if (this.isLoading || (this.branches != null && this.branches.length > 0)) {
       return;
     }
 

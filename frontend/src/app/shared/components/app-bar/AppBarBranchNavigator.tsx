@@ -16,18 +16,19 @@ const AppBarBranchSelector = () => {
   console.info(branchId);
 
   const handleBranchId = (id: string | undefined) => {
-    setBranchId(id);
     if (!id) {
       return;
     }
-    const b = branchesStore.branches.find(x => x.id === id);
+    setBranchId(id);
+
+    const b = branchesStore.branches?.find(x => x.id === id);
     const r = reposStore.repos.find(x => x.id === b?.repositoryId);
     navigate(`/${r?.id!}/${b?.id}`, { replace: true });
   };
 
   useEffect(() => {
     if (!branchId) {
-      const id = branchesStore.branches.at(0)?.id;
+      const id = branchesStore.branches?.at(0)?.id;
       handleBranchId(id);
     }
   }, [branchesStore.branches]);

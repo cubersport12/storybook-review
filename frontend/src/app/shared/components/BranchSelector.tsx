@@ -13,16 +13,18 @@ const BranchSelector = ({ valueChange, value }: { valueChange?: (b: string) => v
   useEffect(() => {
     reposStore.fetchRepos();
   }, [reposStore.repos]);
-  if (reposStore.repos.length > 0) {
-    branchesStore.fetchBranchesByRepos(reposStore.repos.map(x => x.id));
-  }
+  useEffect(() => {
+    if (reposStore.repos.length > 0) {
+      branchesStore.fetchBranchesByRepos(reposStore.repos.map(x => x.id));
+    }
+  }, [branchesStore.branches]);
 
   const repos = reposStore.repos;
   const branches = branchesStore.branches;
 
   return (
     <AppSelect value={value} onChange={e => valueChange && valueChange(e)}>
-      {branches.map(x => {
+      {branches?.map(x => {
         const repoName = repos.find(p => p?.id === x?.repositoryId)?.name;
         return (
           <MenuItem key={x?.id} value={x.id}>

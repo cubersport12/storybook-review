@@ -10,9 +10,11 @@ export class BranchesQueriesService {
   ) {}
 
   public async getBranches(repoId: string | string[]): Promise<BranchDto[]> {
-    const t = await this.distRepo.load(
-      Array.isArray(repoId) ? repoId : [repoId],
-    );
+    const ids = Array.isArray(repoId) ? repoId : [repoId];
+    if (!ids || ids.length === 0) {
+      return [];
+    }
+    const t = await this.distRepo.load(ids);
     return t.map((x) => {
       return {
         id: x.branch.id,
