@@ -13,4 +13,12 @@ export type BranchDto = {
      * Ид репо, где эта ветка находится
      */
     repositoryId: string;
+    /**
+     * Последнее время публикации
+     */
+    lastPublished: string;
+    /**
+     * Кто опубликовал
+     */
+    user: string;
 };
