@@ -17,8 +17,6 @@ export class StoriesDistRepoService {
   }
 
   public async loadByReposIds(reposIds: string[]): Promise<StoryDistEntity[]> {
-    console.info('listByReporIds', reposIds);
-
     const s = await this.storyDistRepo.find({
       relations: ['branch'],
       select: ['timestamp', 'branch', 'id', 'owner'],

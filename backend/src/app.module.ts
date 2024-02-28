@@ -1,4 +1,11 @@
-import { Logger, Module } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  MiddlewareConsumer,
+  Module,
+  NestMiddleware,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
@@ -15,6 +22,17 @@ import {
   UserEntity,
 } from '@entities';
 import { StoriesDistModule } from './modules/stories-dist/stories-dist.module';
+import * as path from 'path';
+
+@Injectable()
+export class FrontendMiddleware implements NestMiddleware {
+  use(req: any, res: any, next: (error?: any) => void): any {
+    return (req, res, next) => {
+      console.info('FrontendMiddleware', req, res);
+      res.sendFile(path.resolve('../frontend/dist/my-app/index.html'));
+    };
+  }
+}
 
 // test
 @Module({

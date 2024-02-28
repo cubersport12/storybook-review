@@ -1,9 +1,10 @@
 import { program } from 'commander'
 import { OpenAPI, PublisherService } from './api'
 import { ZipFile } from 'yazl'
-import { existsSync, readdirSync } from 'fs'
+import { existsSync, createWriteStream } from 'fs'
 import streamToBlob from 'stream-to-blob'
 import * as path from "path";
+import glob from 'glob';
 
 type OptionsType = Record<'api' | 'dir' | 'branch' | 'who' | 'projectId', string>
 
@@ -22,23 +23,28 @@ if (!existsSync(dir)) {
 }
 
 const publishData = async () => {
-  console.info(`Начинаем архивирование папки [${dir}]`)
-  const files = readdirSync(dir)
-  const zip = new ZipFile()
-  files.forEach(file => zip.addFile(path.join(dir, file), file))
-  zip.end()
+  glob(dir + '/**/*.*', async (e, files) => {
+    console.info(files)
+    console.info(`Начинаем архивирование папки [${dir}]`)
+    const zip = new ZipFile()
+    files.forEach((file: string) => {
+      zip.addFile(file, path.relative(dir, file))
+    })
+    zip.end()
 
-  const blob = await streamToBlob(zip.outputStream)
-  console.info(blob)
+    const blob = await streamToBlob(zip.outputStream)
+    console.info(blob)
 
-  console.info('Начинаем публикацию...')
-  await PublisherService.metadataPublisherControllerPublishMetadata({
-    projectId: options.projectId,
-    who: options.who,
-    file: blob,
-    branchName: options.branch
+    console.info('Начинаем публикацию...')
+    await PublisherService.metadataPublisherControllerPublishMetadata({
+      projectId: options.projectId,
+      who: options.who,
+      file: blob,
+      branchName: options.branch
+    })
+    console.info('Публикаия успешно завершена')
   })
-  console.info('Публикаия успешно завершена')
+
 }
 
 (async () => {

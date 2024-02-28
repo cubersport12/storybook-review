@@ -1,5 +1,5 @@
 import { Public } from '@entities';
-import { Controller, Get, HttpStatus, Param, Res } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param, Req, Res } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiResponse,
@@ -16,7 +16,13 @@ import { join } from 'path';
 export class StoriesDistController {
   constructor(private storiesRepo: StoriesDistService) {}
 
-  @Get(':repoId/:branchId/:fileName')
+  private getPathToFolder(branchId: string, url: string): string {
+    const params = url.split('/');
+    const startIndex = params.indexOf(branchId);
+    return join(...params.slice(startIndex + 1).map((x) => x.split('?').at(0)));
+  }
+
+  @Get(':repoId/:branchId/**')
   @Public()
   @ApiSecurity('basic')
   @ApiResponse({
@@ -24,11 +30,12 @@ export class StoriesDistController {
   })
   public async storyDist(
     @Res() response: Response,
+    @Req() request: Request,
     @Param('repoId') repoId: string,
     @Param('branchId') branchId: string,
-    @Param('fileName') fileName?: string,
   ) {
+    const pathToFile = this.getPathToFolder(branchId, request.url);
     const path = await this.storiesRepo.unzipDist(repoId, branchId);
-    return response.sendFile(join(path, fileName ?? 'index.html'));
+    return response.sendFile(join(path, pathToFile));
   }
 }

@@ -39,10 +39,19 @@ export const unzipBuffer = (buffer: Buffer, unzipToDir: string) => {
                   reject(readErr);
                   return;
                 }
-
+                if (/\//.test(entry.fileName)) {
+                  const dir = path.join(
+                    unzipToDir,
+                    path.dirname(entry.fileName),
+                  );
+                  if (!fs.existsSync(dir)) {
+                    mkdirp.sync(dir);
+                  }
+                }
                 const file = fs.createWriteStream(
                   path.join(unzipToDir, entry.fileName),
                 );
+
                 readStream.pipe(file);
                 file.on('finish', () => {
                   // Wait until the file is finished writing, then read the next entry.
